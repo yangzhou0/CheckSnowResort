@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import ReactMapGL, {Marker} from 'react-map-gl'
+import ReactMapGL, {Marker,Popup} from 'react-map-gl'
 import * as resortsData from './data/epic_resorts.json'
 export default function App(){
   const [viewport, setViewport] = useState({
@@ -30,6 +30,9 @@ export default function App(){
           </button>
         </Marker>
       )}
+        {selectedResort && <Popup latitude = {selectedResort.coordinates[0]} longitude = {selectedResort.coordinates[1]}>
+          <div>resort</div>
+        </Popup>}
       </ReactMapGL>
     </div>
   );
