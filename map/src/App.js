@@ -10,6 +10,12 @@ export default function App(){
     zoom: 10
   });
 
+  const [selectedResort, setSelectedResort] = useState(null);
+  const handleClick = (resort)=>{
+    setSelectedResort(resort);
+  }
+
+
   return ( 
     <div>
       <ReactMapGL
@@ -17,9 +23,9 @@ export default function App(){
       mapStyle = 'mapbox://styles/yangzhou93/ckipmnmy613zi17ti10exzems'
       onViewportChange={nextViewport => setViewport(nextViewport)}
       mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}>
-      {resortsData.resorts.map((resort)=>
-        <Marker latitude = {resort.coordinates[0]} longitude = {resort.coordinates[1]}>
-          <button class = 'marker-btn'>
+      {resortsData.resorts.map((resort,index)=>
+        <Marker key = {index} latitude = {resort.coordinates[0]} longitude = {resort.coordinates[1]}>
+          <button className = 'marker-btn' onClick = {(e)=>{e.preventDefault();handleClick(resort)}}>
             <img src = '/icons/snowboard.png' alt ='resort' />
           </button>
         </Marker>
