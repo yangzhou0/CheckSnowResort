@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import ReactMapGL, {Marker,Popup} from 'react-map-gl'
 import * as resortsData from './data/epic_resorts.json'
 export default function App(){
@@ -12,9 +12,21 @@ export default function App(){
 
   const [selectedResort, setSelectedResort] = useState(null);
   const handleClick = (resort)=>{
-    setSelectedResort(resort);
+    if (!selectedResort){
+      setSelectedResort(resort);
+    }else{
+      setSelectedResort(null)
+    }
   }
 
+  useEffect(()=>{
+    const listener = (e)=>{
+      if(e.key == 'Escape'){
+        setSelectedResort(null)
+      }
+    }
+    window.addEventListener('keydown',listener)
+  })
 
   return ( 
     <div>
@@ -34,6 +46,7 @@ export default function App(){
           <div>
             <h3>{selectedResort.name}</h3>
             <p>{selectedResort.description}</p>
+            <a href = {selectedResort.website}>website</a>
           </div>
         </Popup>}
       </ReactMapGL>

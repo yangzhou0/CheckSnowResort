@@ -6,7 +6,8 @@
       "coordinates": [
         39.6061,
         -106.355
-      ]
+      ],
+      "website": "https://www.vail.com"
     },
     {
       "name": "Keystone",
@@ -14,7 +15,8 @@
       "coordinates": [
         39.6084,
         -105.9437
-      ]
+      ],
+      "website": "https://www.keystoneresort.com/"
     }
   ]
 }
