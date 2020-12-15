@@ -30,8 +30,11 @@ export default function App(){
           </button>
         </Marker>
       )}
-        {selectedResort && <Popup latitude = {selectedResort.coordinates[0]} longitude = {selectedResort.coordinates[1]}>
-          <div>resort</div>
+        {selectedResort && <Popup latitude = {selectedResort.coordinates[0]} longitude = {selectedResort.coordinates[1]} onClose={() => setSelectedResort(null)}>
+          <div>
+            <h3>{selectedResort.name}</h3>
+            <p>{selectedResort.description}</p>
+          </div>
         </Popup>}
       </ReactMapGL>
     </div>
