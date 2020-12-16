@@ -48,7 +48,7 @@ export default function MapPage(){
           <div>
             <Link to={`/resorts/${selectedResort.name}`}>{selectedResort.name}</Link>
             <p>{selectedResort.description}</p>
-            <a href = {selectedResort.website}>website</a>
+            <a href = {selectedResort.website } target="_blank">website</a>
           </div>
         </Popup>}
       </ReactMapGL>
