@@ -1,17 +1,17 @@
 from django.core.management.base import BaseCommand
-# from resorts.models import Resort
-# import ../../data/resorts/resorts.json as resorts_data
+from resorts.models import Resort
 import json
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        # seed_resorts()
+        seed_resorts()
         # clear_data()
         test()
         print("completed")
 
 def seed_resorts():
-    resorts_data = json.loads(resorts_data)
+    json_data = open('./resorts/data/resorts.json')
+    resorts_data = json.load(json_data)['resorts']
     for resort in resorts_data:
         resort = Resort(
             name = resort['name'],
@@ -23,9 +23,7 @@ def seed_resorts():
         )
         resort.save()
 
-# def clear_data():
-#   Resort.objects.all().delete()
+def clear_data():
+  Resort.objects.all().delete()
 
-def test():
-    print('test command')
 
