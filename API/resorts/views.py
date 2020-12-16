@@ -2,7 +2,7 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import CommentForm
-from .models import Comment,Resort
+from .models import Comment, Resort
 from .serializers import ResortSerializer, CommentSerializer
 import json
 
@@ -46,11 +46,6 @@ def delete_resort(request, resort_id):
         resort.delete()
     return JsonResponse(data={'status': f'Successfully deleted {resort.name}.'}, status=200)
 
-
-def all_comments(request):
-    comments = Comment.objects.all()
-    serialized_comments = CommentSerializer(comments).all_comments
-    return JsonResponse(data=serialized_comments, status=200)
 
 def comment_detail(request,comment_id):
     comment = Comment.objects.get(id=comment_id)

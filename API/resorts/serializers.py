@@ -6,37 +6,47 @@ class ResortSerializer(object):
 
     @property
     def all_resorts(self):
-        output = {'resorts': []}
+        output = []
 
         for resort in self.body:
             resort_details = {
                 'id': resort.id,
                 'name': resort.name,
+                'description':resort.description,
+                'latitude':resort.latitude,
+                'longitude':resort.longitude,
+                'website':resort.website,
+                'likes':resort.likes,
                 'comments':[]
             }
             for comment in resort.comments.all(): #add all() here because without all(), its not query set;
                 comment_details={
                     'id': comment.id,
-                    'title': comment.title,
                     'body': comment.body,
+                    'likes':comment.likes,
                     'resort_id':resort.id
                 }
                 resort_details['comments'].append(comment_details)
-            output['resorts'].append(resort_details)
+            output.append(resort_details)
 
         return output
 
     @property
     def resort_detail(self):
         resort_details = {
-            'id':self.body.id,
+            'id': self.body.id,
             'name': self.body.name,
+            'description':self.body.description,
+            'latitude':self.body.latitude,
+            'longitude':self.body.longitude,
+            'website':self.body.website,
+            'likes':self.body.likes,
             'comments':[]
         }
         for comment in self.body.comments.all():
             comment_details={
                     'id': comment.id,
-                    'title': comment.title,
+                    'likes': comment.likes,
                     'body': comment.body,
                     'resort_id':comment.resort.id
                 }
@@ -48,24 +58,10 @@ class CommentSerializer(object):
         self.body = body
 
     @property
-    def all_comments(self):
-        output = {'comments': []}
-
-        for comment in self.body:
-            comment_details = {
-                'id':comment.id,
-                'title': comment.title,
-                'body': comment.body,
-                'resort_id': comment.resort.id
-            }
-            output['comments'].append(comment_details)
-        return output
-
-    @property
     def comment_detail(self):
         comment_details = {
             'id':self.body.id,
-            'title': self.body.title,
+            'likes': self.body.likes,
             'body': self.body.body,
             'resort_id': self.body.resort.id
         }
