@@ -72,6 +72,6 @@ def delete_comment(request,comment_id):
     if request.method == "POST":
         comment = Comment.objects.get(id=comment_id)
         comment.delete()
-    return JsonResponse(data={'status':f"successfully deleted {comment.title}"}, status=200)
+    return JsonResponse(data={'status':f"successfully deleted {comment.body}"}, status=200)
 
 
