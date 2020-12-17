@@ -14,6 +14,8 @@ export default function MapPage(){
   });
 
   const [selectedResort, setSelectedResort] = useState(null);
+  const [resorts, setResorts] = useState([]);
+  
   const handleClick = (resort)=>{
     setSelectedResort(resort)
   }
