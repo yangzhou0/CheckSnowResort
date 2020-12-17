@@ -48,13 +48,21 @@ def new_comment(request):
             comment = form.save(commit=True)
             serialized_comment = CommentSerializer(comment).comment_detail
             return JsonResponse(data=serialized_comment, status=200)
+@csrf_exempt
+def like_comment(request,comment_id):
+    if request.method == "POST":
+        likes = Comment.objects.get(id=comment_id).likes
+        Comment.objects.filter(id=comment_id).update(likes = likes + 1) 
+        updated_comment = Comment.objects.get(id=comment_id)
+        serialized_comment = CommentSerializer(updated_comment).comment_detail
+        return JsonResponse(data=serialized_comment, status=200)
 
 @csrf_exempt
 def edit_comment(request,comment_id): # this can be used to update comment body or likes
     if request.method == "POST":
         data = json.load(request)
-        for k,v in data:
-            Comment.objects.filter(id=comment_id).update(k=v)
+        for k,v in data.items():
+            Comment.objects.filter(id=comment_id).update(body=v)
         updated_comment = Comment.objects.get(id=comment_id)
         serialized_comment = CommentSerializer(updated_comment).comment_detail
         return JsonResponse(data=serialized_comment, status=200)
