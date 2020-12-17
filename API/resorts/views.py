@@ -17,34 +17,22 @@ def resort_detail(request, resort_id):
     serialized_resort = ResortSerializer(resort).resort_detail
     return JsonResponse(data=serialized_resort, status=200)
 
-@csrf_exempt
-def new_resort(request):
-    if request.method == "comment":
-        data = json.load(request)
-        form = ResortForm(data)
-        if form.is_valid():
-            resort = form.save(commit=True)
-            serialized_resort = ResortSerializer(resort).resort_detail
-            return JsonResponse(data=serialized_resort, status=200)
 
-@csrf_exempt
-def edit_resort(request, resort_id):
+def resort_comments(request,resort_id):
     resort = Resort.objects.get(id=resort_id)
-    if request.method == "comment":
-        data = json.load(request)
-        form = ResortForm(data, instance=resort)
-        if form.is_valid():
-            resort = form.save(commit=True)
-            serialized_resort = ResortSerializer(resort).resort_detail
-            return JsonResponse(data=serialized_resort, status=200)
-
+    serialized_resort = ResortSerializer(resort).resort_detail
+    serialized_comments = serialized_resort['comments']
+    return JsonResponse(data=serialized_comments, status=200)
 
 @csrf_exempt
-def delete_resort(request, resort_id):
-    if request.method == "comment":
-        resort = Resort.objects.get(id=resort_id)
-        resort.delete()
-    return JsonResponse(data={'status': f'Successfully deleted {resort.name}.'}, status=200)
+def like_resort(request,resort_id):
+    if request.method == "POST":
+        data = json.load(request)
+        for k,v in data:
+            Resort.objects.filter(id=resort_id).update(k=v)
+        updated_resort = Resort.objects.get(id=resort_id)
+        serialized_resort = ResortSerializer(updated_resort).resort_detail
+        return JsonResponse(data=serialized_resort, status=200)
 
 
 def comment_detail(request,comment_id):
@@ -54,7 +42,7 @@ def comment_detail(request,comment_id):
 
 @csrf_exempt
 def new_comment(request):
-    if request.method == "comment":
+    if request.method == "POST":
         data = json.load(request)
         form = CommentForm(data)
         if form.is_valid():
@@ -63,19 +51,18 @@ def new_comment(request):
             return JsonResponse(data=serialized_comment, status=200)
 
 @csrf_exempt
-def edit_comment(request,comment_id):
-    comment = Comment.objects.get(id=comment_id)
-    if request.method == "comment":
+def edit_comment(request,comment_id): # this can be used to update comment body or likes
+    if request.method == "POST":
         data = json.load(request)
-        form = CommentForm(data, instance=comment)
-        if form.is_valid():
-            comment = form.save(commit=True)
-            serialized_comment = CommentSerializer(comment).comment_detail
-            return JsonResponse(data=serialized_comment, status=200)
+        for k,v in data:
+            Comment.objects.filter(id=comment_id).update(k=v)
+        updated_comment = Comment.objects.get(id=comment_id)
+        serialized_comment = CommentSerializer(updated_comment).comment_detail
+        return JsonResponse(data=serialized_comment, status=200)
 
 @csrf_exempt
 def delete_comment(request,comment_id):
-    if request.method == "comment":
+    if request.method == "POST":
         comment = Comment.objects.get(id=comment_id)
         comment.delete()
     return JsonResponse(data={'status':f"successfully deleted {comment.title}"}, status=200)
