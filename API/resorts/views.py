@@ -6,10 +6,10 @@ from .models import Comment, Resort
 from .serializers import ResortSerializer, CommentSerializer
 import json
 
-def all_resrots(request):
+def all_resorts(request):
     resorts = Resort.objects.all()
     serialized_resorts = ResortSerializer(resorts).all_resorts
-    return JsonResponse(data=serialized_resorts, status=200)
+    return JsonResponse(data=serialized_resorts, safe=False,status=200)
 
 
 def resort_detail(request, resort_id):
@@ -22,14 +22,13 @@ def resort_comments(request,resort_id):
     resort = Resort.objects.get(id=resort_id)
     serialized_resort = ResortSerializer(resort).resort_detail
     serialized_comments = serialized_resort['comments']
-    return JsonResponse(data=serialized_comments, status=200)
+    return JsonResponse(data=serialized_comments, safe=False,status=200)
 
 @csrf_exempt
 def like_resort(request,resort_id):
     if request.method == "POST":
-        data = json.load(request)
-        for k,v in data:
-            Resort.objects.filter(id=resort_id).update(k=v)
+        likes = Resort.objects.get(id=resort_id).likes
+        Resort.objects.filter(id=resort_id).update(likes = likes + 1) 
         updated_resort = Resort.objects.get(id=resort_id)
         serialized_resort = ResortSerializer(updated_resort).resort_detail
         return JsonResponse(data=serialized_resort, status=200)
