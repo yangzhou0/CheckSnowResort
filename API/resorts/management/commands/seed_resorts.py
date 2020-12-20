@@ -6,7 +6,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         seed_resorts()
         # clear_data()
-        test()
         print("completed")
 
 def seed_resorts():

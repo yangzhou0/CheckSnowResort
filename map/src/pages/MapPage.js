@@ -1,8 +1,8 @@
 import React,{useState, useEffect} from 'react'
 import ReactMapGL, {Marker,Popup} from 'react-map-gl'
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import { fetchResorts} from '../api/ResortAPI';
 
-import * as resortsData from '../data/epic_resorts.json'
 
 export default function MapPage(){
   const [viewport, setViewport] = useState({
@@ -14,8 +14,8 @@ export default function MapPage(){
   });
 
   const [selectedResort, setSelectedResort] = useState(null);
-  const [resorts, setResorts] = useState([]);
-  
+  const [resortsData, setResortsData] = useState([]);
+
   const handleClick = (resort)=>{
     setSelectedResort(resort)
   }
@@ -27,9 +27,11 @@ export default function MapPage(){
       }
     }
     window.addEventListener('keydown',listener)
+    fetchResorts().then(resorts => setResortsData(resorts))
     return ()=>{
       window.removeEventListener('keydown',listener)
     }
+
   },[])
 
   return ( 
@@ -39,14 +41,14 @@ export default function MapPage(){
       mapStyle = 'mapbox://styles/yangzhou93/ckipmnmy613zi17ti10exzems'
       onViewportChange={nextViewport => setViewport(nextViewport)}
       mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}>
-      {resortsData.resorts.map((resort,index)=>
-        <Marker key = {index} latitude = {resort.coordinates[0]} longitude = {resort.coordinates[1]}>
+      {resortsData.map((resort,index)=>
+        <Marker key = {index} latitude = {resort.latitude} longitude = {resort.longitude}>
           <button className = 'marker-btn' onClick = {(e)=>{e.preventDefault();handleClick(resort)}}>
             <img src = '/icons/snowboard.png' alt ='resort' />
           </button>
         </Marker>
       )}
-        {selectedResort && <Popup latitude = {selectedResort.coordinates[0]} longitude = {selectedResort.coordinates[1]} closeOnClick={false} onClose={() => setSelectedResort(null)}>
+        {selectedResort && <Popup latitude = {selectedResort.latitude} longitude = {selectedResort.longitude} closeOnClick={false} onClose={() => setSelectedResort(null)}>
           <div>
             <Link to={`/resorts/${selectedResort.name}`}>{selectedResort.name}</Link>
             <p>{selectedResort.description}</p>
