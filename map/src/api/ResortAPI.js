@@ -6,6 +6,13 @@ const fetchResortByID = async (resortID) => {
   return data;
 };
 
+const fetchResortByName = async (resort_name) => {
+  const response = await fetch(`${BASE_URL}`);
+  const resortsData = await response.json();
+  const data = resortsData.find(resort => resort.name == resort_name)
+  return data;
+};
+
 const fetchResorts = async (filters = null) => {
   const url = filters ? `${BASE_URL}?filter={"where":${filters}}` : BASE_URL;
   const response = await fetch(url);
@@ -22,8 +29,10 @@ const likeResort = async (resortID) => {
   });
 }
 
+
 export {
   fetchResortByID,
+  fetchResortByName,
   fetchResorts,
   likeResort
 };
