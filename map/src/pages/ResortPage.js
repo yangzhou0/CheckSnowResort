@@ -13,8 +13,8 @@ export default function ResortPage(props){
   // in this case, a change in state will trigger re-render, but will not call useEffect
   // this is minicing componentDidMount
   
-  const handleLikeComment = ()=>{
-    console.log('liked')
+  const handleLikeComment = (commentID)=>{
+    console.log(`liked comment ${commentID}`)
   }
 
   return (

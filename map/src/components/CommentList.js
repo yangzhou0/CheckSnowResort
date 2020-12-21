@@ -8,7 +8,7 @@ export default function CommentList({comments,handleLikeComment}) {
       <ListGroup>
       {comments && comments.map((comment, index) => (
         <ListGroupItem>
-          <span>{comment.body} <Button onClick = {handleLikeComment} >like {comment.likes}</Button></span>
+          <span>{comment.body} <Button onClick = {()=>{handleLikeComment(comment.id)}} >like {comment.likes}</Button></span>
         </ListGroupItem>
       ))}
     </ListGroup>
