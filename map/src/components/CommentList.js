@@ -1,14 +1,14 @@
 import React from 'react';
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { ListGroup, ListGroupItem,Button } from 'reactstrap';
 
-export default function CommentList({comments}) {
+export default function CommentList({comments,handleLikeComment}) {
   return (
     <div>
       <h2>comments:</h2>
       <ListGroup>
       {comments && comments.map((comment, index) => (
         <ListGroupItem>
-          <div>{comment.body} {comment.likes}</div>
+          <span>{comment.body} <Button onClick = {handleLikeComment} >like {comment.likes}</Button></span>
         </ListGroupItem>
       ))}
     </ListGroup>
