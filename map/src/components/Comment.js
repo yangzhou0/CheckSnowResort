@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react'
 import { Button } from 'reactstrap';
 
-export default function Comment({comment,handleLikeComment,handleUpdateComment,handleDeleteComment}) {
+export default function Comment({comment,handleLikeComment,handleUpdateComment,handleDeleteComment,handleAddComment}) {
   const [edit, setEdit] = useState(false);
   return (
     <div>

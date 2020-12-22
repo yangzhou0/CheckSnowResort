@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react'
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import { fetchResortByName} from '../api/ResortAPI';
-import { likeComment,editComment, deleteComment} from '../api/CommentAPI';
+import { likeComment,editComment, deleteComment,addComment} from '../api/CommentAPI';
 import CommentList from '../components/CommentList'
 export default function ResortPage(props){
   const [resort, setResort] = useState(Object());
@@ -26,9 +26,14 @@ export default function ResortPage(props){
     deleteComment(commentID).then(()=>fetchResortByName(resortName)).then(resort => setResort(resort))
   }
 
+  const handleAddComment = (commentObject) => {
+    commentObject.resort = resort.id
+    addComment(commentObject).then(()=>fetchResortByName(resortName)).then(resort => setResort(resort))
+  }
+
   return (
     <div>
-      <CommentList comments={resort.comments} handleLikeComment={handleLikeComment} handleUpdateComment={handleUpdateComment} handleDeleteComment={handleDeleteComment}/>
+      <CommentList comments={resort.comments} handleLikeComment={handleLikeComment} handleUpdateComment={handleUpdateComment} handleDeleteComment={handleDeleteComment} handleAddComment={handleAddComment}/>
     </div>
   )
 }
