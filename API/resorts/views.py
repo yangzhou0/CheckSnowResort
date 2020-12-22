@@ -62,7 +62,8 @@ def edit_comment(request,comment_id): # this can be used to update comment body 
     if request.method == "POST":
         data = json.load(request)
         for k,v in data.items():
-            Comment.objects.filter(id=comment_id).update(body=v)
+            if k == 'body':
+                Comment.objects.filter(id=comment_id).update(body=v)
         updated_comment = Comment.objects.get(id=comment_id)
         serialized_comment = CommentSerializer(updated_comment).comment_detail
         return JsonResponse(data=serialized_comment, status=200)
