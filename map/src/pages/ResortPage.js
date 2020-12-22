@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import { fetchResortByName} from '../api/ResortAPI';
 import { likeComment,editComment, deleteComment,addComment} from '../api/CommentAPI';
 import CommentList from '../components/CommentList'
+import Weather from '../components/Weather'
+
 export default function ResortPage(props){
   const [resort, setResort] = useState(Object());
   let resortName = props.match.params.resortName
@@ -33,6 +35,7 @@ export default function ResortPage(props){
 
   return (
     <div>
+      <Weather latitude = {resort.latitude} longitude = {resort.longitude} />
       <CommentList comments={resort.comments} handleLikeComment={handleLikeComment} handleUpdateComment={handleUpdateComment} handleDeleteComment={handleDeleteComment} handleAddComment={handleAddComment}/>
     </div>
   )
