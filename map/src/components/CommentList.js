@@ -1,4 +1,6 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react'
+import Comment from './Comment'
+
 import { ListGroup, ListGroupItem,Button } from 'reactstrap';
 
 export default function CommentList({comments,handleLikeComment}) {
@@ -8,11 +10,10 @@ export default function CommentList({comments,handleLikeComment}) {
       <ListGroup>
       {comments && comments.sort((a,b)=>{return b.likes - a.likes}).map((comment) => (
         <ListGroupItem>
-          <span>{comment.body} <Button onClick = {()=>{handleLikeComment(comment.id)}} >like {comment.likes}</Button></span>
+          <Comment comment = {comment} handleLikeComment={handleLikeComment}/>
         </ListGroupItem>
       ))}
     </ListGroup>
     </div>
-    
   )
 }
