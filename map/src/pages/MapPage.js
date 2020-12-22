@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react'
 import ReactMapGL, {Marker,Popup} from 'react-map-gl'
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import { fetchResorts} from '../api/ResortAPI';
-
+import './css/mapPageCss.css'
 
 export default function MapPage(){
   const [viewport, setViewport] = useState({
