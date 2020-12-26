@@ -23,11 +23,10 @@ export default function Weather({latitude,longitude}) {
   },[latitude,longitude])
   return (
     <div className='weatherComponent'>
-      <h2>Weather:</h2>
       {weatherData &&  
         <div>
         <div className="location-box">
-          <div className="location">location</div>
+          <div className="location">{weatherData.name}</div>
           <div className="date">{dateBuilder(new Date())}</div>
         </div>
         <div className="weather-box">
