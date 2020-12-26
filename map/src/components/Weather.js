@@ -7,7 +7,8 @@ export default function Weather({latitude,longitude}) {
 
   const dateBuilder = (d) => {
     console.log('date',d)
-    console.log('day',d.getDay())
+    console.log('my local time',d.getTime())
+    console.log('resort time',weatherData.dt)
     let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -21,8 +22,12 @@ export default function Weather({latitude,longitude}) {
   useEffect(()=>{
     axios.get(`http://api.openweathermap.org/data/2.5/weather?units=imperial&lat=${latitude}&lon=${longitude}&appid=3115dd5f897c855de48b2d210f218903`).then(response => setWeatherData(response.data))
   },[latitude,longitude])
+  const afterSunset = ()=>{
+    return weatherData.dt > weatherData.sys.sunset
+  }
+
   return (
-    <div className='weatherComponent'>
+    <div className={afterSunset()? 'nightWeather' : 'dayWeather'}>
       {weatherData &&  
         <div>
         <div className="location-box">
@@ -31,9 +36,9 @@ export default function Weather({latitude,longitude}) {
         </div>
         <div className="weather-box">
           <div className="temp">
-            Temperature: {weatherData.main.temp}
+            {weatherData.main.temp} °F
           </div>
-          <div className="weather">Description: {weatherData.weather[0].description}</div>
+          <div className="weather"> {weatherData.weather[0].main}</div>
         </div>
       </div>
       }
