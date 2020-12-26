@@ -6,7 +6,7 @@ import HomePage from './pages/HomePage.js';
 export default function App(){
 
   return ( 
-    <div>
+    <div className ='app'>
       <Router>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/map" component={MapPage} />
