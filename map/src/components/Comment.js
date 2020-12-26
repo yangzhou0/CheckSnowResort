@@ -11,7 +11,7 @@ export default function Comment({comment,handleLikeComment,handleUpdateComment,h
         <div>
           <textarea id = {`textarea${comment.id}`}onDoubleClick={()=> setEdit(!edit)}>{comment.body}</textarea> 
           <Button onClick = {()=>{handleUpdateComment({id:comment.id,body:document.getElementById(`textarea${comment.id}`).value}); setEdit(!edit)}}>Update</Button>
-          <Button onClick = {()=>{handleDeleteComment(comment.id)}}>Delete</Button>
+          <Button onClick = {()=>{handleDeleteComment(comment.id);setEdit(!edit)}}>Delete</Button>
         </div>
       }
     </div>
