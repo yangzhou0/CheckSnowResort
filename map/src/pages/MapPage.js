@@ -3,7 +3,7 @@ import ReactMapGL, {Marker,Popup} from 'react-map-gl'
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import { fetchResorts} from '../api/ResortAPI';
 import './css/mapPageCss.css'
-
+import snowboardLogo from '../assets/icons/snowboard.png'
 export default function MapPage(){
   const [viewport, setViewport] = useState({
     width: "100vw",
@@ -44,7 +44,7 @@ export default function MapPage(){
       {resortsData.map((resort,index)=>
         <Marker key = {index} latitude = {resort.latitude} longitude = {resort.longitude}>
           <button className = 'marker-btn' onClick = {(e)=>{e.preventDefault();handleClick(resort)}}>
-            <img src = '/icons/snowboard.png' alt ='resort' />
+            <img src = {snowboardLogo} alt ='resort' />
           </button>
         </Marker>
       )}

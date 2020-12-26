@@ -4,6 +4,7 @@ import { fetchResortByName} from '../api/ResortAPI';
 import { likeComment,editComment, deleteComment,addComment} from '../api/CommentAPI';
 import CommentList from '../components/CommentList'
 import Weather from '../components/Weather'
+import './css/resortPage.css'
 
 export default function ResortPage(props){
   const [resort, setResort] = useState(Object());

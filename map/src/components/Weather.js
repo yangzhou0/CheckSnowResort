@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from 'react'
 import axios from 'axios'
+import './css/weatherComponent.css'
 
 export default function Weather({latitude,longitude}) {
   const [weatherData, setWeatherData] = useState(null);
@@ -10,7 +11,7 @@ export default function Weather({latitude,longitude}) {
     axios.get(`http://api.openweathermap.org/data/2.5/weather?units=imperial&lat=${latitude}&lon=${longitude}&appid=3115dd5f897c855de48b2d210f218903`).then(response => setWeatherData(response.data))
   },[latitude,longitude])
   return (
-    <div>
+    <div className='weatherBackground'>
       <h2>Weather:</h2>
       {weatherData &&  
       <div>
