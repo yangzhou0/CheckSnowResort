@@ -8,10 +8,20 @@ export default function CommentBox({comments,handleLikeComment,handleUpdateComme
   const [showComments,setShowComments] = useState(false)
   let commentNodes;
   let buttonText = 'Show Comments';
-  
+  const getComments = ()=>{
+    return <ListGroup>
+      {comments && comments.sort((a,b)=>{return b.likes - a.likes}).map((comment) => (
+        <ListGroupItem>
+          <Comment comment = {comment} handleLikeComment={handleLikeComment} handleUpdateComment={handleUpdateComment} handleDeleteComment={handleDeleteComment} />
+        </ListGroupItem>
+      ))}
+    </ListGroup>
+  }
+  const commentList = getComments();
+
   if (showComments) {
     buttonText = 'Hide Comments';
-    commentNodes = <div className="comment-list">{comments}</div>;
+    commentNodes = <div className="comment-list">{commentList}</div>;
   }
   const getCommentsTitle = (commentCount) => {
     if (commentCount === 0) {
@@ -22,7 +32,7 @@ export default function CommentBox({comments,handleLikeComment,handleUpdateComme
       return `${commentCount} comments`;
     }
   }
-
+  
   return(
     <div className="comment-box">
         <h2>Join the Discussion!</h2>
