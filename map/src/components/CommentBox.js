@@ -1,13 +1,42 @@
 import React,{useState, useEffect} from 'react'
 import Comment from './Comment'
 import './css/commentBoxComponent.css'
-
+import CommentForm from './CommentForm'
 import { ListGroup, ListGroupItem,Button } from 'reactstrap';
 
 export default function CommentBox({comments,handleLikeComment,handleUpdateComment,handleDeleteComment,handleAddComment}) {
   const [showComments,setShowComments] = useState(false)
+  let commentNodes;
+  let buttonText = 'Show Comments';
+  
+  if (showComments) {
+    buttonText = 'Hide Comments';
+    commentNodes = <div className="comment-list">{comments}</div>;
+  }
+  const getCommentsTitle = (commentCount) => {
+    if (commentCount === 0) {
+      return 'No comments yet';
+    } else if (commentCount === 1) {
+      return "1 comment";
+    } else {
+      return `${commentCount} comments`;
+    }
+  }
+
   return(
-    <h1>hi</h1>
+    <div className="comment-box">
+        <h2>Join the Discussion!</h2>
+        <CommentForm handleAddComment={handleAddComment}/>
+        <button id="comment-reveal" onClick={()=>{setShowComments(!showComments)}}>
+          {buttonText}
+        </button>
+        <h3>Comments</h3>
+        {comments && 
+        <h4 className="comment-count">
+          {getCommentsTitle(comments.length)}
+        </h4>}
+        {commentNodes}
+    </div>  
   )
   // return (
   //   <div>
