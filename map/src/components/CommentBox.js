@@ -6,22 +6,19 @@ import { ListGroup, ListGroupItem,Button } from 'reactstrap';
 
 export default function CommentBox({comments,handleLikeComment,handleUpdateComment,handleDeleteComment,handleAddComment}) {
   const [showComments,setShowComments] = useState(false)
-  let commentNodes;
   let buttonText = 'Show Comments';
   const getComments = ()=>{
-    return <ListGroup>
+    return <div>
       {comments && comments.sort((a,b)=>{return b.likes - a.likes}).map((comment) => (
-        <ListGroupItem>
           <Comment comment = {comment} handleLikeComment={handleLikeComment} handleUpdateComment={handleUpdateComment} handleDeleteComment={handleDeleteComment} />
-        </ListGroupItem>
       ))}
-    </ListGroup>
+    </div>
   }
-  const commentList = getComments();
+  
+  const commentNodes = getComments();
 
   if (showComments) {
     buttonText = 'Hide Comments';
-    commentNodes = <div className="comment-list">{commentList}</div>;
   }
   const getCommentsTitle = (commentCount) => {
     if (commentCount === 0) {
@@ -45,7 +42,7 @@ export default function CommentBox({comments,handleLikeComment,handleUpdateComme
         <h4 className="comment-count">
           {getCommentsTitle(comments.length)}
         </h4>}
-        {commentNodes}
+        {showComments && commentNodes}
     </div>  
   )
   // return (
