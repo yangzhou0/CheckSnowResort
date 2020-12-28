@@ -1,9 +1,13 @@
 import React from 'react'
 import './css/commentBoxComponent.css'
 
-export default function CommentForm(handleAddComment) {
+export default function CommentForm({handleAddComment}) {
+  const addNewComment = (e)=>{
+    e.preventDefault();    
+    handleAddComment({body:document.getElementById(`newComment`).value});
+  }
   return (
-    <form className="comment-form" onSubmit={()=>{handleAddComment({body:document.getElementById(`newComment`).value})}}>
+    <form className="comment-form" onSubmit={(e)=>{addNewComment(e)}}>
         <div className="comment-form-fields">
           <input placeholder="Name" required ></input><br />
           <textarea id = 'newComment' placeholder="Comment" rows="4" required ></textarea>
