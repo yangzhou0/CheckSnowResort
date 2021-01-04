@@ -6,9 +6,6 @@ export default function Weather({latitude,longitude}) {
   const [weatherData, setWeatherData] = useState(null);
 
   const dateBuilder = (d) => {
-    console.log('date',d)
-    console.log('my local time',d.getTime())
-    console.log('resort time',weatherData.dt)
     let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 

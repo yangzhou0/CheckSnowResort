@@ -24,7 +24,8 @@ class ResortSerializer(object):
                     'id': comment.id,
                     'body': comment.body,
                     'likes':comment.likes,
-                    'resort_id':resort.id
+                    'resort_id':resort.id,
+                    'author': comment.author
                 }
                 resort_details['comments'].append(comment_details)
             output.append(resort_details)
@@ -48,7 +49,8 @@ class ResortSerializer(object):
                     'id': comment.id,
                     'likes': comment.likes,
                     'body': comment.body,
-                    'resort_id':comment.resort.id
+                    'resort_id':comment.resort.id,
+                    'author': comment.author
                 }
             resort_details['comments'].append(comment_details)
         return resort_details
@@ -63,7 +65,9 @@ class CommentSerializer(object):
             'id':self.body.id,
             'likes': self.body.likes,
             'body': self.body.body,
-            'resort_id': self.body.resort.id
+            'resort_id': self.body.resort.id,
+            'author': self.body.author
+
         }
         
         return comment_details
