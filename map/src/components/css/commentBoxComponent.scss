@@ -75,7 +75,7 @@ button {
 .comment-footer {
   margin-bottom: 1rem;
 }
-.comment-footer-delete {
+.comment-footer-delete, .comment-footer-update{
   padding: 0.2rem 0;
   color: $dark-grey;
   text-decoration: none;
@@ -85,3 +85,15 @@ button {
     font-weight: bold;
   }
 }
+
+.comment-like-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.comment-like-button img{
+  width: 20px;
+  height: 20px
+}
+
