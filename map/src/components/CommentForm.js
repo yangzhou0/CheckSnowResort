@@ -1,5 +1,5 @@
 import React from 'react'
-import './css/commentBoxComponent.css'
+import './css/commentBoxComponent.scss'
 
 export default function CommentForm({handleAddComment}) {
   const addNewComment = (e)=>{

@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react'
 import Comment from './Comment'
-import './css/commentBoxComponent.css'
+import './css/commentBoxComponent.scss'
 import CommentForm from './CommentForm'
 import { ListGroup, ListGroupItem,Button } from 'reactstrap';
 
@@ -14,7 +14,7 @@ export default function CommentBox({comments,handleLikeComment,handleUpdateComme
       ))}
     </div>
   }
-  
+
   const commentNodes = getComments();
 
   if (showComments) {

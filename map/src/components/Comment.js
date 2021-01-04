@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react'
 import { Button } from 'reactstrap';
-import './css/commentBoxComponent.css'
+import './css/commentBoxComponent.scss'
 
 export default function Comment({comment,handleLikeComment,handleUpdateComment,handleDeleteComment,handleAddComment}) {
   const [edit, setEdit] = useState(false);
