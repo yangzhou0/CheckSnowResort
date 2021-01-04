@@ -18,3 +18,4 @@ class Comment(models.Model):
     body = models.CharField(max_length=5000)
     resort = models.ForeignKey(Resort, on_delete=models.CASCADE,related_name='comments')
     likes = models.PositiveIntegerField(default = 0)
+    author = models.CharField(max_length=100)
