@@ -6,6 +6,7 @@ export default function Comment({comment,handleLikeComment,handleUpdateComment,h
   const [edit, setEdit] = useState(false);
   return (
     <div className="comment">
+      <p className="comment-header">{comment.author}</p>
       {!edit ? 
         <div className="comment-body">
           <span onDoubleClick={()=> setEdit(!edit)}>- {comment.body}</span> <

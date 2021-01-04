@@ -31,7 +31,6 @@ export default function ResortPage(props){
 
   const handleAddComment = (commentObject) => {
     commentObject.resort = resort.id
-    console.log('comment obj',commentObject)
     addComment(commentObject).then(()=>fetchResortByName(resortName)).then(resort => setResort(resort))
   }
 
